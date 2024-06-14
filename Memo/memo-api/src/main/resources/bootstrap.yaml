@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: api-service
+  cloud:
+      nacos:
+        server-addr: 192.168.126.128:8848
+        config:
+          username: nacos
+          password: nacos
+          file-extension: yaml
+          shared-configs:
+            - data-id: memo-shared-jdbc.yaml

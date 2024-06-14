@@ -1,0 +1,15 @@
+server:
+  port: 8083
+feign:
+  okhttp:
+    enabled: true # 开启OKHttp功能
+  sentinel:
+    enabled: true
+memo:
+    db:
+      database: memo-user
+
+spring:
+   cloud:
+     nacos:
+       server-addr: 192.168.126.128:8848

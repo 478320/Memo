@@ -1,0 +1,40 @@
+<!-- resources/mapper/UserMapper.xml -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huayu.task.mapper.TaskMapper">
+    <insert id="saveTask" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_task (user_id, description,completed)
+        VALUES (#{userId}, #{description},#{completed})
+    </insert>
+    <update id="updateStatus" parameterType="com.huayu.task.domain.Task">
+        UPDATE tb_task
+        SET completed = #{completed}
+        WHERE id = #{id}
+    </update>
+    <select id="selectTaskById" parameterType="java.lang.Long" resultType="com.huayu.task.domain.Task">
+        SELECT `id`,`user_id`,`description`,`completed` FROM tb_task WHERE id = #{id}
+    </select>
+    <select id="selectTaskList" resultType="com.huayu.task.domain.Task">
+        SELECT `id`,`user_id`,`description`,`completed` FROM tb_task
+        WHERE user_id = #{userId} AND completed=#{status}
+        ORDER BY id
+        LIMIT #{current}, 5
+    </select>
+    <select id="selectTaskListLike" resultType="com.huayu.task.domain.Task">
+        SELECT `id`,`user_id`,`description`,`completed` FROM tb_task
+        WHERE user_id = #{userId} AND MATCH(description) AGAINST(#{context} IN BOOLEAN MODE)
+        ORDER BY id
+        LIMIT #{current}, 5
+    </select>
+    <delete id="deleteTaskById" parameterType="java.lang.Long">
+        DELETE FROM tb_task
+        WHERE id = #{id}
+    </delete>
+    <delete id="deleteTaskByUserId" parameterType="java.lang.Long">
+        DELETE FROM tb_task
+        WHERE user_id = #{id}
+    </delete>
+    <delete id="deleteTaskCompletedByUserId" parameterType="java.lang.Long">
+        DELETE FROM tb_task
+        WHERE user_id = #{id} AND completed = 1
+    </delete>
+</mapper>
