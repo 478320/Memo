@@ -8,4 +8,10 @@ feign:
 memo:
     db:
       database: memo-list
+rate:
+  limit:
+    time-unit: seconds
+    max-count: 10
+    time-range: 60
+    strategy: custom
 

@@ -3,6 +3,7 @@ package com.huayu.task.controller;
 
 import com.huayu.api.dto.Result;
 import com.huayu.ratelimit.annotation.RateLimit;
+import com.huayu.ratelimit.annotation.RateLimitPolicy;
 import com.huayu.task.domain.Task;
 import com.huayu.task.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,9 @@ public class TaskController {
      * @param request 携带查询头的用户唯一token信息
      * @param status  查询的任务的状态
      */
-    @RateLimit(prefixKey = "list",timeRange = 10,timeUnit = TimeUnit.SECONDS,maxCount = 3)
+    @RateLimit(policy =
+            @RateLimitPolicy(prefixKey = "list")
+    )
     @GetMapping("/{status}")
     public Result listTask(@PathVariable("status") Integer status,@RequestParam(value = "current", defaultValue = "0") Integer current,HttpServletRequest request) {
         return taskService.listTask(status, request,current);

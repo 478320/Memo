@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/hi")
 public class TestController {
 
-    @RateLimit(prefixKey = "list",timeRange = 10,timeUnit = TimeUnit.SECONDS,maxCount = 3)
+
     @GetMapping()
     public String login() {
         //登录
